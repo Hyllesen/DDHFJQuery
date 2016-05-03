@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test javascripts</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script>
+$(function() { //Document is loaded
+        $.getJSON("http://fbballin.com/v1/items",function(result){
+            $.each(result, function(index) {
+                var items = result.data.default.map(function (item) {
+                    document.write('<strong>Titel:</strong> ' + item.headline + '<br>');
+                    document.write('<strong>ID: </strong>' + item.id + '<br>');
+                    document.write('<strong>Beskrivelse:</strong> ' + item.description + '<br>');
+                    document.write('<strong>Datering fra:</strong> ' + item.dating_from.pretty + '<br>');
+                    document.write('<strong>Datering til:</strong> ' + item.dating_to.pretty + '<br>');
+                    document.write('<strong>Oprettet:</strong> ' + item.created_at.pretty + '<br>');
+                    document.write('<strong>Donator: </strong> ' + item.donator + '<br>');
+                    if(item.images.length > 0) {
+                        var fullImageURL = "<a href=\"" + item.images[0].full + "\"> <img src=\"" + item.images[0].thumb + "\"> </a>";
+                        document.write(fullImageURL);
+                    }
+                    document.write('<p>');
+                    return item.key + ': ' + item.value;
+                });
+                console.log(items.length);
+            });
+        });
+});
+</script>
+</head>
+<body>
+</body>
+</html>
